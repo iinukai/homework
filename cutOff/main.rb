@@ -1,4 +1,4 @@
-# coding:utf-8
+# coding: utf-8
 
 require 'benchmark'
 require './cutOff'
@@ -11,7 +11,7 @@ require './cutOff'
 @outputFile = @inputFile.sub(/\.in\.txt$/, ".out.txt")
 
 if @inputFile == @outputFile
-  fail "file name must be fin with '.in.txt'."
+  fail "the end of filename must be '.in.txt'."
 end
 
 

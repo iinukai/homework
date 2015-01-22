@@ -1,4 +1,4 @@
-# coding:utf-8
+# coding: utf-8
 
 # *** 戦略 ***
 # 1桁目は10ごとにかたまりサイズ1
@@ -7,6 +7,7 @@
 # つまり
 # n桁目は10**nごとにかたまりサイズ10**(n-1)
 # をかぞえる
+# コストはO(log(n))
 
 class Count7
   # 探す数字(1-9の間…0はばぐります)
@@ -17,7 +18,7 @@ class Count7
       # カウント可
       @target = targetNo;
     else
-      fail "target must between 1 and 9."
+      fail "target must be between 1 and 9."
     end
   end
 
@@ -29,22 +30,23 @@ class Count7
 
     loop {
       keta     = 10 ** exp
+      beginNo  = @target * keta
       subCount = 0
 
-      if number / keta == 0
+      if number < keta
         # 桁がなくなった
         break
       end
 
-      if number < @target * keta
+      if number < beginNo
         # 最初の出現位置より小さい
         break
       end
 
       # その桁に存在する数を数える
       mod   = number % (keta * 10)
-      shift = number - (@target * keta)  # 計算対象の桁がtargetのとき0にくるように合わせる
-      if mod.between?(@target * keta, (@target * keta) + keta -1)
+      shift = number - beginNo  # 計算対象の桁がtargetのとき0にくるように合わせる
+      if mod.between?(beginNo, beginNo + keta - 1)
         subCount += (shift / (keta * 10) * keta) + (number % keta + 1) # かたまりの中で終わっているとき：それまでに出現したかたまりの数＋端数
         puts "sub1: #{exp+1} #{subCount}"
       else
@@ -54,7 +56,7 @@ class Count7
 =begin
       mod   = number % (keta * 10)
       shift = number + ((10 - @target) * keta)  # 計算対象の桁がtargetのとき1桁上がるように合わせる
-      if mod.between?(@target * keta, (@target * keta) + keta -1)
+      if mod.between?(beginNo, beginNo + keta - 1)
         subCount += (shift / (keta * 10) * keta) - keta + (number % keta + 1) # かたまりの中で終わっているとき：それまでに出現したかたまりの数＋端数 (かたまりの先頭を越えると桁があがるので、-keta している)
         puts "sub1: #{exp+1} #{subCount}"
       else

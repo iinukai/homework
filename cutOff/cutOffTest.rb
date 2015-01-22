@@ -1,12 +1,10 @@
-# coding;utf-8
+# coding: utf-8
 
-=begin  # 家の環境
+=begin
 require 'test/unit'
 require './cutOff'
 
 class TestCutOff < Test::Unit::TestCase
-
-# ↓でも通った.
 =end
 
 require 'minitest/autorun'

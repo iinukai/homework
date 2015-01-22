@@ -1,9 +1,16 @@
-# coding;utf-8
+# coding: utf-8
 
+=begin
 require 'test/unit'
 require './count7'
 
 class TestCount7 < Test::Unit::TestCase
+=end
+
+require 'minitest/autorun'
+require './count7'
+
+class TestCount7 < Minitest::Test
   def test_count7
     counter7 = Count7.new(7)
 
