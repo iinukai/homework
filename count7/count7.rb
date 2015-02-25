@@ -7,7 +7,7 @@
 # つまり
 # n桁目は10**nごとにかたまりサイズ10**(n-1)
 # をかぞえる
-# コストはO(log(n))
+# 計算量はO(log n)
 
 class Count7
   # 探す数字(1-9の間…0はばぐります)
@@ -28,7 +28,7 @@ class Count7
 
     puts "[ #{number} ]"
 
-    loop {
+    loop do
       keta     = 10 ** exp
       beginNo  = @target * keta
       subCount = 0
@@ -68,10 +68,42 @@ class Count7
       count += subCount
 
       exp += 1  # 次の桁にいきます
-    }
+    end
 
     puts count
+    return count
+  end
 
+  def count2(number)
+    exp   = 0 # 10**0の位から計算スタート
+    count = 0
+
+    puts "[ #{number} ]"
+
+    loop do
+      keta = 10 ** exp
+
+      if number < keta
+        # 桁がなくなった
+        break
+      end
+
+      kNum = number.to_s[(exp * -1) -1].to_i  # ketaの位の数字をとってくる
+
+      if kNum < @target
+        tmp = (number / (keta * 10)) * keta
+      elsif kNum == @target
+        tmp = (number / (keta * 10)) * keta + (number % keta) + 1
+      else
+        tmp = (number / (keta * 10)) * keta + keta
+      end
+      puts tmp
+      count += tmp
+
+      exp += 1;  # 次の桁にいく
+    end
+
+    puts "total:#{count}"
     return count
   end
 end
