@@ -40,7 +40,7 @@ for data in @inputData
 =end
   if ! data[2].between?(1, 5)
     p data
-    fail "row must be between 1 and 5."
+    fail "cut must be between 1 and 5."
   end
 end
 
