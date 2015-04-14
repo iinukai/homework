@@ -37,11 +37,11 @@ for data in @inputData
     p data
     fail "row must be between 1 and 10."
   end
-=end
   if ! data[2].between?(1, 5)
     p data
     fail "cut must be between 1 and 5."
   end
+=end
 end
 
 
@@ -49,7 +49,7 @@ end
 answer = []
 proc_time = Benchmark.realtime do
   for data in @inputData
-    answer << count(data[0], data[1], data[2])
+    answer << count2(data[0], data[1], data[2])
     p data, answer.last
   end
 end

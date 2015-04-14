@@ -1,5 +1,8 @@
 # coding: utf-8
 
+require './fig.rb'
+require './figSet.rb'
+
 # 戦略
 # たて4×よこ3のシートから2枚切り取ることを考える。
 # 切り取り方は、
@@ -16,7 +19,8 @@
 # ・シートの大きさに依存しない
 # ・切り取りサイズとの関係は…？ 1,2,6,19,63,…
 
-def count(column, row, cutSize)
+# 人力検索
+def count(row, column, cutSize)
   # 切り取る数とパターン。5以上は考える気にならない…
   patternHash = {
     1 => [[1, 1]],    # ■
@@ -56,11 +60,33 @@ def count(column, row, cutSize)
 
   total = 0
   for pattern in patternHash[cutSize]
-    if column >= pattern[0] && row >= pattern[1]
-      total += (column - pattern[0] + 1) * (row - pattern[1] + 1)
+    if row >= pattern[0] && column >= pattern[1]
+      total += (row - pattern[0] + 1) * (column - pattern[1] + 1)
     end
   end
 
   return total
 end
 
+# 機械検索
+def count2(row, column, cutSize)
+  # Seed
+  s1 = Array.new(1){Array.new(1).fill(true)}
+  figSet = FigSet.new([Fig.new(s1)])
+
+  # 指定枚数のFigSetをつくる
+  if cutSize > 1
+    (cutSize - 1).times do
+      figSet = figSet.plusOne
+    end
+  end
+
+  total = 0
+  for pattern in figSet.getPattern
+    if row >= pattern[0] && column >= pattern[1]
+      total += (row - pattern[0] + 1) * (column - pattern[1] + 1)
+    end
+  end
+
+  return total
+end
